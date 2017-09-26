@@ -1,10 +1,12 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema } from "mongoose";
 
 const TweetSchema = new Schema(
   {
+    user: String,
     text: String,
+    likes: Number
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-export default mongoose.model('Tweet', TweetSchema);
+export default mongoose.model("Tweet", TweetSchema);

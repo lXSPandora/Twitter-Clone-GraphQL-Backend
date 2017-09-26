@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev nodemon --exec babel-node src/index.js",
-    "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'"
+    "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
+    "update-schema": "babel-node ./scripts/updateSchema.js"
   },
   "dependencies": {
     "apollo-server-express": "^1.0.2",
