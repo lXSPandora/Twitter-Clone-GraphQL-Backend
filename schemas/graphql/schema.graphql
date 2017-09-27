@@ -1,0 +1,20 @@
+# The root of all... queries
+type Query {
+  getTweet: Tweet
+  getTweets: [Tweet]
+}
+
+# Represents a Tweet
+type Tweet {
+  # The ID of an object
+  id: ID!
+
+  # user
+  user: String
+
+  # text
+  text: String
+
+  # like
+  like: Int
+}

@@ -8,16 +8,11 @@ import { createServer } from 'http';
 
 import './config/db';
 import constants from './config/constants';
-import typeDefs from './graphql/schema';
-import resolvers from './graphql/resolvers';
+import { schema } from './graphql/schema';
+import QueryType from './graphql/type/QueryType';
 import mocks from './mocks';
 
 const app = express();
-
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-});
 
 app.use(bodyParser.json());
 

@@ -1786,6 +1786,10 @@ graphql-date@^1.0.3:
   dependencies:
     assert-err "^1.0.0"
 
+graphql-relay@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/graphql-relay/-/graphql-relay-0.5.2.tgz#40ff714efd60c2cd89e0bcc79e2afa6d87fa8673"
+
 graphql-tools@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-1.1.0.tgz#8d86ea6997b0dea3089b62dc655e47146a663ebb"

@@ -11,32 +11,31 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import fs from "fs";
-import path from "path";
-import schema from "../src/graphql/schema";
-// import { schema as schemaConsole } from '../src/console/schema';
-import { graphql } from "graphql";
-import { introspectionQuery, printSchema } from "graphql/utilities";
+import fs from 'fs';
+import path from 'path';
+import { schema } from '../src/graphql/schema';
+import { graphql } from 'graphql';
+import { introspectionQuery, printSchema } from 'graphql/utilities';
 
 async function generateSchema(schema, relativePath) {
-  console.log("generate schemas: ", relativePath);
+  console.log('generate schemas: ', relativePath);
 
-  const result = await graphql(schema, introspectionQuery);
+  const result = await (graphql(schema, introspectionQuery));
 
   if (result.errors) {
     console.error(
-      "ERROR introspecting schema: ",
-      JSON.stringify(result.errors, null, 2)
+      'ERROR introspecting schema: ',
+      JSON.stringify(result.errors, null, 2),
     );
   } else {
     fs.writeFileSync(
-      path.join(__dirname, `${relativePath}/schema.js`),
-      JSON.stringify(result, null, 2)
+      path.join(__dirname, `${relativePath}/schema.json`),
+      JSON.stringify(result, null, 2),
     );
 
     fs.writeFileSync(
       path.join(__dirname, `${relativePath}/schema.graphql`),
-      printSchema(schema)
+      printSchema(schema),
     );
   }
 }
@@ -45,15 +44,13 @@ async function generateSchema(schema, relativePath) {
   const configs = [
     {
       schema,
-      path: "../src/graphql/"
-    }
+      path: '../schemas/graphql',
+    },
   ];
 
-  await Promise.all(
-    configs.map(async config => {
-      await generateSchema(config.schema, config.path);
-    })
-  );
+  await Promise.all(configs.map(async (config) => {
+    await generateSchema(config.schema, config.path);
+  }));
 
   process.exit(0);
 })();
