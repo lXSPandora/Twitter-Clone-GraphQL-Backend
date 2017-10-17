@@ -1,7 +1,7 @@
 {
-  "name": "Twitter Clone Graphql Backend",
+  "name": "koa-passport-mongoose-graphql",
   "version": "1.0.0",
-  "description": "A Clone of Twitter backend using koa and graphql",
+  "description": "Koa 2 server with passport mongoose and graphql",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
