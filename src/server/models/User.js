@@ -17,15 +17,13 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    followers: {
-      type: [String],
-    },
   },
   {
     timestamps: {
       createdAt: 'createdAt',
       updatedAt: 'updatedAt',
     },
+    collection: 'users',
   }
 );
 
