@@ -1,127 +1,175 @@
-schema {
-  query: RootQuery
-  mutation: RootMutation
+input ChangePasswordInput {
+  oldPassword: String!
+
+  # user new password
+  password: String!
+  clientMutationId: String
 }
 
-input addUserInput {
-  name: String
-  email: String
-  password: String
-  updatedAt: Date
-  createdAt: Date
-  clientMutationId: String!
+type ChangePasswordPayload {
+  error: String
+  me: User
+  clientMutationId: String
 }
 
-type addUserPayload {
-  viewer: Viewer
-  changedUserEdge: changedUserEdge
-  clientMutationId: String!
+input LoginEmailInput {
+  email: String!
+  password: String!
+  clientMutationId: String
 }
 
-type changedUserEdge {
-  node: changedUserNode
-  cursor: String!
+type LoginEmailPayload {
+  token: String
+  error: String
+  clientMutationId: String
 }
 
-type changedUserNode {
-  name: String
-  email: String
-  password: String
-  _id: ID
-  updatedAt: Date
-  createdAt: Date
-  id: ID!
+type Mutation {
+  LoginEmail(input: LoginEmailInput!): LoginEmailPayload
+  RegisterEmail(input: RegisterEmailInput!): RegisterEmailPayload
+  ChangePassword(input: ChangePasswordInput!): ChangePasswordPayload
+  TweetAdd(input: TweetAddInput!): TweetAddPayload
 }
 
-scalar Date
-
-input deleteUserInput {
-  id: ID!
-  clientMutationId: String!
-}
-
-type deleteUserPayload {
-  viewer: Viewer
-  ok: Boolean
-  id: ID!
-  clientMutationId: String!
-}
-
+# An object with an ID
 interface Node {
+  # The id of the object.
   id: ID!
 }
 
-enum orderByUser {
-  NAME_ASC
-  NAME_DESC
-  PASSWORD_ASC
-  PASSWORD_DESC
-  _ID_ASC
-  _ID_DESC
-  UPDATEDAT_ASC
-  UPDATEDAT_DESC
-  CREATEDAT_ASC
-  CREATEDAT_DESC
-}
-
+# Information about pagination in a connection.
 type PageInfo {
+  # When paginating forwards, are there more items?
   hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
   hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
   startCursor: String
+
+  # When paginating forwards, the cursor to continue.
   endCursor: String
 }
 
-type RootMutation {
-  addUser(input: addUserInput!): addUserPayload
-  updateUser(input: updateUserInput!): updateUserPayload
-  deleteUser(input: deleteUserInput!): deleteUserPayload
-}
-
-type RootQuery {
-  viewer: Viewer
-  node(id: ID!): Node
+# The root of all... queries
+type Query {
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+  me: User
   user(id: ID!): User
-  users(id: [ID], ids: [ID], orderBy: orderByUser, name: String, email: String, password: String, _id: ID, updatedAt: Date, createdAt: Date): [User]
+  users(after: String, first: Int, before: String, last: Int, search: String): UserConnection
+  tweet(id: ID!): Tweet
+  tweets(after: String, first: Int, before: String, last: Int, search: String): TweetConnection
 }
 
-input updateUserInput {
-  name: String
-  email: String
-  password: String
-  updatedAt: Date
-  createdAt: Date
+input RegisterEmailInput {
+  name: String!
+  image: String!
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type RegisterEmailPayload {
+  token: String
+  error: String
+  clientMutationId: String
+}
+
+# Represents Tweet
+type Tweet implements Node {
+  # The ID of an object
   id: ID!
-  clientMutationId: String!
+
+  # username of the tweet owner
+  username: String
+
+  # userImage of the tweet owner
+  userImage: String
+
+  # tweet title
+  title: String
+
+  # tweet body
+  text: String
+
+  # tweet likes
+  likes: [String]
 }
 
-type updateUserPayload {
-  changedUser: User
-  clientMutationId: String!
+input TweetAddInput {
+  # username of the tweet owner
+  username: String
+
+  # userImage of the tweet owner
+  userImage: String
+
+  # tweet title
+  title: String
+
+  # tweet body
+  text: String
+
+  # tweet likes
+  likes: [String]
+  clientMutationId: String
 }
 
-type User implements Node {
-  name: String
-  email: String
-  password: String
-  _id: ID
-  updatedAt: Date
-  createdAt: Date
-  id: ID!
+type TweetAddPayload {
+  tweetEdge: TweetEdge
+  error: String
+  clientMutationId: String
 }
 
-type UserConnection {
+# A connection to a list of items.
+type TweetConnection {
+  # Information to aid in pagination.
   pageInfo: PageInfo!
-  edges: [UserEdge]
-  count: Float
+
+  # A list of edges.
+  edges: [TweetEdge]
+  count: Int
 }
 
-type UserEdge {
-  node: User
+# An edge in a connection.
+type TweetEdge {
+  # The item at the end of the edge
+  node: Tweet
+
+  # A cursor for use in pagination
   cursor: String!
 }
 
-type Viewer implements Node {
+# User data
+type User implements Node {
+  # The ID of an object
   id: ID!
-  users(after: String, first: Int, before: String, last: Int, orderBy: orderByUser, name: String, email: String, password: String, _id: ID, updatedAt: Date, createdAt: Date): UserConnection
-  user(id: ID!): User
+  _id: String
+  name: String
+  image: String
+  email: String
+  active: Boolean
+}
+
+# A connection to a list of items.
+type UserConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [UserEdge]
+  count: Int
+}
+
+# An edge in a connection.
+type UserEdge {
+  # The item at the end of the edge
+  node: User
+
+  # A cursor for use in pagination
+  cursor: String!
 }

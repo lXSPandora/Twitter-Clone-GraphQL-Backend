@@ -1,11 +1,31 @@
-# Koa 2 + Passport + Mongoose + GraphQL
+# GraphQL DataLoader Boilerplate
 
-[![Build Status](https://travis-ci.org/sibelius/koa-passport-mongoose-graphql.svg?branch=master)](https://travis-ci.org/sibelius/koa-passport-mongoose-graphql)
+[![CircleCI](https://circleci.com/gh/entria/graphql-dataloader-boilerplate.svg?style=svg)](https://circleci.com/gh/entria/graphql-dataloader-boilerplate)
+[![codecov](https://codecov.io/gh/entria/graphql-dataloader-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/entria/graphql-dataloader-boilerplate)
 
-## Notice
-You want build a more flexible GraphQL schema, consider using this boilerplate instead: https://github.com/sibelius/graphql-dataloader-boilerplate
+Very simple boilerplate using GraphQL and DataLoader
 
-[graffiti-mongoose](https://github.com/RisingStack/graffiti-mongoose) is good for your first version of GraphQL, but do not scale well when you need to customize your schema
+## Blog Posts
+* [How to implement viewerCanSee in  GraphQL](https://medium.com/@sibelius/how-to-implement-viewercansee-in-graphql-78cc48de7464#.d9vpk6fvx)
+* [Testing a GraphQL Server using Jest](https://medium.com/@sibelius/testing-a-graphql-server-using-jest-4e00d0e4980e)
+
+### Directory Structure
+
+```
+├── /data/                   # GraphQL generated schema
+├── /repl/                   # Read-Eval-Print-Loop (REPL) configuration
+├── /scripts/                # Generate GraphQL schema script
+├── /src/                    # Source code of GraphQL Server
+│   ├── /connection/         # Connections types (Relay)
+│   ├── /interface/          # NodeInterface (Relay)
+│   ├── /loader/             # Loaders of the models using DataLoader
+│   ├── /model/              # Models definition (Mongoose, SQL, Google DataStore)
+│   ├── /mutation/           # Mutations definition
+├── /test/                   # Test helpers
+```
+
+## Create-GraphQL
+If you want to move faster you should use [create-graphql](https://github.com/lucasbento/create-graphql) to simplify the creation of a GraphQL Server
 
 ## Command
 
@@ -13,36 +33,69 @@ You want build a more flexible GraphQL schema, consider using this boilerplate i
 ```bash
 npm install
 ```
+Note: If you do not have mongodb installed, please install it:
+```bash
+brew install mongodb
+```
 #### Develop
 ```bash
-# using nodemon
-npm start
-
-# using babel-watch
 npm run watch
 ```
 
-#### Test
+### Test
 ```bash
 npm test
 ```
 
+Or
+```bash
+npm run test:watch
+```
 
-## Dependencies
+#### Docker and docker-compose
+No needs for installing dependencies or running `mongod` in another terminal window
 
-- Watcher and hot-reload: [nodemon](http://nodemon.io/)
-- Test:
-    + [mocha](https://mochajs.org/)
-    + [should](https://github.com/shouldjs/should.js)
-    + [supertest](https://github.com/visionmedia/supertest)
-- Build: [babel](http://babeljs.io/)
-    + tools: babel-register
-    + presets: babel-preset-es2015-node5
-    + plugins: transform-async-to-generator, syntax-async-functions
-- *Lint*:
-    You can choose the lint tool that you prefer.
+```bash
+docker-compose build && docker-compose up
+```
 
-## Reference
+Test
+```bash
+docker-compose -f docker-compose.test.yml build && docker-compose -f docker-compose.test.yml up
+```
 
-- [koajs/koa#533](https://github.com/koajs/koa/issues/533)
-- [koajs/koa#596](https://github.com/koajs/koa/issues/596)
+#### Production
+```bash
+# first compile the code
+npm run build
+
+# run graphql compiled server
+npm start
+```
+
+### Flow
+```bash
+npm run flow
+```
+
+Or
+```bash
+flow
+```
+
+### REPL server
+```bash
+npm run repl
+
+awesome > const user = await M.User.find()
+```
+
+Yep, await syntax works on the repl, it is awesome, tks @princejwesley (https://gist.github.com/princejwesley/a66d514d86ea174270210561c44b71ba)
+
+### Schema
+Update your schema
+```bash
+npm run update-schema
+```
+
+Take a look on the [Schema](https://github.com/sibelius/graphql-dataloader-boilerplate/blob/master/data/schema.graphql)
