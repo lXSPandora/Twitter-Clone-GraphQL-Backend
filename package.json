@@ -1,7 +1,7 @@
 {
-  "name": "graphql-dataloader-boilerplate",
+  "name": "Twitter-Clone-GraphQL",
   "description": "GraphQL DataLoader boilerplate",
-  "version": "0.0.1",
+  "version": "1.2.0",
   "dependencies": {
     "@entria/graphql-mongoose-loader": "^1.1.1",
     "babel-polyfill": "^6.26.0",
@@ -47,28 +47,20 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "./dist"
-    ],
-    "coverageReporters": [
-      "lcov",
-      "html"
-    ],
+    "testPathIgnorePatterns": ["/node_modules/", "./dist"],
+    "coverageReporters": ["lcov", "html"],
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
     "moduleNameMapper": {
       "^mongoose$": "<rootDir>/node_modules/mongoose"
     },
-    "setupFiles": [
-      "babel-polyfill"
-    ]
+    "setupFiles": ["babel-polyfill"]
   },
   "license": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/entria/graphql-dataloader-boilerplate"
+    "url": "https://github.com/lXSPandora/Twitter-Clone-GraphQL-Backend"
   },
   "lint-staged": {
     "*.js": [
@@ -77,7 +69,8 @@
     ]
   },
   "scripts": {
-    "build": "npm run clear && babel src --ignore *.spec.js --out-dir dist --copy-files",
+    "build":
+      "npm run clear && babel src --ignore *.spec.js --out-dir dist --copy-files",
     "clear": "rimraf ./dist",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "lint": "eslint src/**",
