@@ -1,101 +1,42 @@
-# GraphQL DataLoader Boilerplate
 
-[![CircleCI](https://circleci.com/gh/entria/graphql-dataloader-boilerplate.svg?style=svg)](https://circleci.com/gh/entria/graphql-dataloader-boilerplate)
-[![codecov](https://codecov.io/gh/entria/graphql-dataloader-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/entria/graphql-dataloader-boilerplate)
+----------
+# GraphQL - Twitter Clone
 
-Very simple boilerplate using GraphQL and DataLoader
+![enter image description here](https://i.imgur.com/9nmaquP.png)
 
-## Blog Posts
-* [How to implement viewerCanSee in  GraphQL](https://medium.com/@sibelius/how-to-implement-viewercansee-in-graphql-78cc48de7464#.d9vpk6fvx)
-* [Testing a GraphQL Server using Jest](https://medium.com/@sibelius/testing-a-graphql-server-using-jest-4e00d0e4980e)
+To run this graphql server you need to:
 
-### Directory Structure
+ * Clone the repo `git clone`
+ * Run `yarn` or `npm install`
+ * Run `yarn watch` or `yarn build && yarn update-scehma && yarn start`
+ * And there you go to: `http://localhost:5000/graphql`
 
-```
-├── /data/                   # GraphQL generated schema
-├── /repl/                   # Read-Eval-Print-Loop (REPL) configuration
-├── /scripts/                # Generate GraphQL schema script
-├── /src/                    # Source code of GraphQL Server
-│   ├── /connection/         # Connections types (Relay)
-│   ├── /interface/          # NodeInterface (Relay)
-│   ├── /loader/             # Loaders of the models using DataLoader
-│   ├── /model/              # Models definition (Mongoose, SQL, Google DataStore)
-│   ├── /mutation/           # Mutations definition
-├── /test/                   # Test helpers
-```
+Queries and Mutations that can be made:
 
-## Create-GraphQL
-If you want to move faster you should use [create-graphql](https://github.com/lucasbento/create-graphql) to simplify the creation of a GraphQL Server
+#Queries
 
-## Command
 
-#### Setup
-```bash
-npm install
-```
-Note: If you do not have mongodb installed, please install it:
-```bash
-brew install mongodb
-```
-#### Develop
-```bash
-npm run watch
-```
+----------
 
-### Test
-```bash
-npm test
-```
 
-Or
-```bash
-npm run test:watch
-```
+| Query  | Description |
+| -------: | ------- |
+| `users`   | returns a bunch of users |
+| `user`  | returns a specific user |
+| `tweets`    | returns a bunch of tweets |
+| `tweet`   | returns a specific tweet |
 
-#### Docker and docker-compose
-No needs for installing dependencies or running `mongod` in another terminal window
 
-```bash
-docker-compose build && docker-compose up
-```
 
-Test
-```bash
-docker-compose -f docker-compose.test.yml build && docker-compose -f docker-compose.test.yml up
-```
+#Mutations
 
-#### Production
-```bash
-# first compile the code
-npm run build
+---------
 
-# run graphql compiled server
-npm start
-```
 
-### Flow
-```bash
-npm run flow
-```
-
-Or
-```bash
-flow
-```
-
-### REPL server
-```bash
-npm run repl
-
-awesome > const user = await M.User.find()
-```
-
-Yep, await syntax works on the repl, it is awesome, tks @princejwesley (https://gist.github.com/princejwesley/a66d514d86ea174270210561c44b71ba)
-
-### Schema
-Update your schema
-```bash
-npm run update-schema
-```
-
-Take a look on the [Schema](https://github.com/sibelius/graphql-dataloader-boilerplate/blob/master/data/schema.graphql)
+| Query  | Description |
+| -------: | ------- |
+| `TweetAdd`   | Adds a new Tweet |
+| `TweetEdit`  | Edit a field from the tweet |
+| `LoginEmail`    | Generates a Token JWT for the user |
+| `RegisterEmail`   | Adds a new user to the database |
+| `ChangePassword`   | Changes the user password |
