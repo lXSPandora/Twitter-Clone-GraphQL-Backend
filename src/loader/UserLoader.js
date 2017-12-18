@@ -10,6 +10,7 @@ type UserType = {
   id: string,
   _id: string,
   name: string,
+  image: string,
   email: string,
   active: boolean,
 };
@@ -18,6 +19,7 @@ export default class User {
   id: string;
   _id: string;
   name: string;
+  image: string;
   email: string;
   active: boolean;
 
@@ -25,7 +27,7 @@ export default class User {
     this.id = data.id;
     this._id = data._id;
     this.name = data.name;
-
+    this.image = data.image;
     // you can only see your own email, and your active status
     if (user && user._id.equals(data._id)) {
       this.email = data.email;
@@ -36,11 +38,9 @@ export default class User {
 
 export const getLoader = () => new DataLoader(ids => mongooseLoader(UserModel, ids));
 
-const viewerCanSee = (viewer, data) => {
+const viewerCanSee = (viewer, data) =>
   // Anyone can see another user
-  return true;
-};
-
+  true;
 export const load = async (context: GraphQLContext, id: string): Promise<?User> => {
   if (!id) {
     return null;
@@ -55,9 +55,7 @@ export const load = async (context: GraphQLContext, id: string): Promise<?User> 
   return viewerCanSee(context, data) ? new User(data, context) : null;
 };
 
-export const clearCache = ({ dataloaders }: GraphQLContext, id: string) => {
-  return dataloaders.UserLoader.clear(id.toString());
-};
+export const clearCache = ({ dataloaders }: GraphQLContext, id: string) => dataloaders.UserLoader.clear(id.toString());
 
 export const loadUsers = async (context: GraphQLContext, args: ConnectionArguments) => {
   const where = args.search ? { name: { $regex: new RegExp(`^${args.search}`, 'ig') } } : {};
