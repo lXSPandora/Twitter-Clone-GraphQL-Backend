@@ -6,7 +6,7 @@ import { mutationWithClientMutationId, fromGlobalId } from 'graphql-relay';
 import { Tweet } from '../model';
 
 import TweetType from '../type/TweetType';
-import TweetLoader from '../loader/TweetLoader';
+import { TweetLoader } from '../loader';
 
 export default mutationWithClientMutationId({
   name: 'TweetEdit',
@@ -40,19 +40,6 @@ export default mutationWithClientMutationId({
       id, likes, title, text,
     } = args;
 
-    // Check if the provided ID is valid
-    // const tweet = await Tweet.findOne({
-    //   _id: fromGlobalId(id).id,
-    // });
-    //
-    // // If not, throw an error
-    // if (!tweet) {
-    //   throw new Error('Invalid tweetId');
-    // }
-    //
-    // // TODO: mutation logic
-    // const tweets = new
-
     const tweet = await Tweet.findOne({
       _id: fromGlobalId(id).id,
     });
@@ -60,17 +47,24 @@ export default mutationWithClientMutationId({
     if (!tweet) {
       throw new Error('Invalid tweetId');
     }
-
-    await Tweet.findOneAndUpdate(
-      {
-        _id: fromGlobalId(id).id,
-      },
-      {
+    // checking fields and updating
+    if (likes) {
+      await tweet.update({
         likes,
+      });
+    }
+
+    if (title) {
+      await tweet.update({
         title,
+      });
+    }
+
+    if (text) {
+      await tweet.update({
         text,
-      },
-    );
+      });
+    }
 
     // Clear dataloader cache
     TweetLoader.clearCache(context, tweet._id);
