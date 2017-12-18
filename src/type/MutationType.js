@@ -6,6 +6,7 @@ import LoginEmail from '../mutation/LoginEmailMutation';
 import RegisterEmail from '../mutation/RegisterEmailMutation';
 import ChangePassword from '../mutation/ChangePasswordMutation';
 import TweetAdd from '../mutation/TweetAddMutation';
+import TweetEdit from '../mutation/TweetEditMutation';
 
 export default new GraphQLObjectType({
   name: 'Mutation',
@@ -16,5 +17,6 @@ export default new GraphQLObjectType({
     ChangePassword,
     // tweet
     TweetAdd,
+    TweetEdit,
   }),
 });

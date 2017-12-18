@@ -1,16 +1,9 @@
 // @flow
 
-import {
-  GraphQLID,
-  GraphQLString,
-  GraphQLNonNull,
-} from 'graphql';
-import {
-  mutationWithClientMutationId,
-  fromGlobalId,
-} from 'graphql-relay';
+import { GraphQLID, GraphQLString, GraphQLNonNull, GraphQLList } from 'graphql';
+import { mutationWithClientMutationId, fromGlobalId } from 'graphql-relay';
 
-import Tweet from '../model/Tweet';
+import { Tweet } from '../model';
 
 import TweetType from '../type/TweetType';
 import TweetLoader from '../loader/TweetLoader';
@@ -20,9 +13,19 @@ export default mutationWithClientMutationId({
   inputFields: {
     id: {
       type: new GraphQLNonNull(GraphQLID),
+      required: true,
     },
-    example: {
+    likes: {
+      type: new GraphQLList(GraphQLString),
+      required: false,
+    },
+    title: {
       type: GraphQLString,
+      required: false,
+    },
+    text: {
+      type: GraphQLString,
+      required: false,
     },
   },
   mutateAndGetPayload: async (args, context) => {
@@ -34,21 +37,40 @@ export default mutationWithClientMutationId({
     }
 
     const {
-      id,
-      example,
+      id, likes, title, text,
     } = args;
 
     // Check if the provided ID is valid
+    // const tweet = await Tweet.findOne({
+    //   _id: fromGlobalId(id).id,
+    // });
+    //
+    // // If not, throw an error
+    // if (!tweet) {
+    //   throw new Error('Invalid tweetId');
+    // }
+    //
+    // // TODO: mutation logic
+    // const tweets = new
+
     const tweet = await Tweet.findOne({
       _id: fromGlobalId(id).id,
     });
 
-    // If not, throw an error
     if (!tweet) {
       throw new Error('Invalid tweetId');
     }
 
-    // TODO: mutation logic
+    await Tweet.findOneAndUpdate(
+      {
+        _id: fromGlobalId(id).id,
+      },
+      {
+        likes,
+        title,
+        text,
+      },
+    );
 
     // Clear dataloader cache
     TweetLoader.clearCache(context, tweet._id);
