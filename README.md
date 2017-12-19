@@ -1,5 +1,3 @@
----
-
 # GraphQL - Twitter Clone
 
 ![enter image description here](https://i.imgur.com/9nmaquP.png)
