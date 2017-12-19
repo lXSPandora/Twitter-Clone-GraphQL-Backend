@@ -19,10 +19,6 @@ export default mutationWithClientMutationId({
       type: new GraphQLList(GraphQLString),
       required: false,
     },
-    title: {
-      type: GraphQLString,
-      required: false,
-    },
     text: {
       type: GraphQLString,
       required: false,
@@ -36,9 +32,7 @@ export default mutationWithClientMutationId({
       throw new Error('Unauthorized user');
     }
 
-    const {
-      id, likes, title, text,
-    } = args;
+    const { id, likes, title, text } = args;
 
     const tweet = await Tweet.findOne({
       _id: fromGlobalId(id).id,

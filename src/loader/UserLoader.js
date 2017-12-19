@@ -28,9 +28,9 @@ export default class User {
     this._id = data._id;
     this.name = data.name;
     this.image = data.image;
+    this.email = data.email;
     // you can only see your own email, and your active status
     if (user && user._id.equals(data._id)) {
-      this.email = data.email;
       this.active = data.active;
     }
   }

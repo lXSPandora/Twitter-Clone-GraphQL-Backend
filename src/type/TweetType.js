@@ -17,11 +17,6 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       description: 'userImage of the tweet owner',
     },
-    title: {
-      type: GraphQLString,
-      description: 'tweet title',
-      resolve: tweet => tweet.title,
-    },
     text: {
       type: GraphQLString,
       description: 'tweet body',

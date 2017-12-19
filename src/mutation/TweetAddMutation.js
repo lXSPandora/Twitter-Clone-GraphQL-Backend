@@ -19,10 +19,6 @@ export default mutationWithClientMutationId({
       type: GraphQLString,
       description: 'userImage of the tweet owner',
     },
-    title: {
-      type: GraphQLString,
-      description: 'tweet title',
-    },
     text: {
       type: GraphQLString,
       description: 'tweet body',
@@ -32,9 +28,7 @@ export default mutationWithClientMutationId({
       description: 'tweet likes',
     },
   },
-  mutateAndGetPayload: async ({
-    username, userImage, title, text, likes,
-  }, { user }) => {
+  mutateAndGetPayload: async ({ username, userImage, title, text, likes }, { user }) => {
     // Verify if user is authorized
     if (!user) {
       throw new Error('Unauthorized user');

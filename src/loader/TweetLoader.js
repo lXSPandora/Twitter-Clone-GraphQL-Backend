@@ -11,7 +11,6 @@ type TweetType = {
   _id: string,
   username: string,
   userImage: string,
-  title: string,
   text: string,
   likes: Array<string>,
 };
@@ -21,7 +20,6 @@ export default class Tweet {
   _id: string;
   username: string;
   userImage: string;
-  title: string;
   text: string;
   likes: Array<string>;
 
