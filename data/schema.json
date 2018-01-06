@@ -333,6 +333,18 @@
               "deprecationReason": null
             },
             {
+              "name": "username",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "image",
               "description": null,
               "args": [],
@@ -593,8 +605,8 @@
               "deprecationReason": null
             },
             {
-              "name": "username",
-              "description": "username of the tweet owner",
+              "name": "userId",
+              "description": "User id of the owner",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -605,24 +617,12 @@
               "deprecationReason": null
             },
             {
-              "name": "userImage",
-              "description": "userImage of the tweet owner",
+              "name": "user",
+              "description": "user node",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "title",
-              "description": "tweet title",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "OBJECT",
+                "name": "User",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1025,6 +1025,20 @@
               "defaultValue": null
             },
             {
+              "name": "username",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
               "name": "image",
               "description": null,
               "type": {
@@ -1231,28 +1245,8 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "username",
-              "description": "username of the tweet owner",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "userImage",
-              "description": "userImage of the tweet owner",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "title",
-              "description": "tweet title",
+              "name": "userId",
+              "description": "user id of the owner",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1377,16 +1371,6 @@
                   "name": "String",
                   "ofType": null
                 }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "title",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
               },
               "defaultValue": null
             },
