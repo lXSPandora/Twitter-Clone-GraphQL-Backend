@@ -17,6 +17,10 @@ export default new GraphQLObjectType({
       type: GraphQLString,
       resolve: user => user.name,
     },
+    username: {
+      type: GraphQLString,
+      resolve: user => user.username,
+    },
     image: {
       type: GraphQLString,
       resolve: user => user.image,

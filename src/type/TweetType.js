@@ -2,20 +2,23 @@ import { GraphQLObjectType, GraphQLString, GraphQLList } from 'graphql';
 import { globalIdField } from 'graphql-relay';
 
 import { NodeInterface } from '../interface/NodeInterface';
+import UserType from './UserType';
+import { UserLoader } from '../loader/';
 
 export default new GraphQLObjectType({
   name: 'Tweet',
   description: 'Represents Tweet',
   fields: () => ({
     id: globalIdField('Tweet'),
-    username: {
+    userId: {
       type: GraphQLString,
-      description: 'username of the tweet owner',
-      resolve: tweet => tweet.username,
+      description: 'User id of the owner',
+      resolve: tweet => tweet.userId,
     },
-    userImage: {
-      type: GraphQLString,
-      description: 'userImage of the tweet owner',
+    user: {
+      type: UserType,
+      description: 'user node',
+      resolve: (tweet, args, context) => UserLoader.load(context, tweet.userId),
     },
     text: {
       type: GraphQLString,

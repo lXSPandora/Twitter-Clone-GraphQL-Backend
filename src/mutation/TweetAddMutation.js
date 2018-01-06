@@ -11,13 +11,9 @@ import TweetConnection from '../connection/TweetConnection';
 export default mutationWithClientMutationId({
   name: 'TweetAdd',
   inputFields: {
-    username: {
+    userId: {
       type: GraphQLString,
-      description: 'username of the tweet owner',
-    },
-    userImage: {
-      type: GraphQLString,
-      description: 'userImage of the tweet owner',
+      description: 'user id of the owner',
     },
     text: {
       type: GraphQLString,
@@ -28,16 +24,14 @@ export default mutationWithClientMutationId({
       description: 'tweet likes',
     },
   },
-  mutateAndGetPayload: async ({ username, userImage, title, text, likes }, { user }) => {
+  mutateAndGetPayload: async ({ userId, text, likes }, { user }) => {
     // Verify if user is authorized
     if (!user) {
       throw new Error('Unauthorized user');
     }
 
     const tweet = new Tweet({
-      username,
-      userImage,
-      title,
+      userId,
       text,
       likes,
     });

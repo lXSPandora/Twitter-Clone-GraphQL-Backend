@@ -6,10 +6,11 @@ import { connectionFromMongoCursor, mongooseLoader } from '@entria/graphql-mongo
 import type { ConnectionArguments } from 'graphql-relay';
 import type { GraphQLContext } from '../TypeDefinition';
 
-type UserType = {
+export type UserType = {
   id: string,
   _id: string,
   name: string,
+  username: string,
   image: string,
   email: string,
   active: boolean,
@@ -19,6 +20,7 @@ export default class User {
   id: string;
   _id: string;
   name: string;
+  username: string;
   image: string;
   email: string;
   active: boolean;
@@ -27,6 +29,7 @@ export default class User {
     this.id = data.id;
     this._id = data._id;
     this.name = data.name;
+    this.username = data.username;
     this.image = data.image;
     this.email = data.email;
     // you can only see your own email, and your active status

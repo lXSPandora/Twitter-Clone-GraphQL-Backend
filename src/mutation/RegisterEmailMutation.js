@@ -11,6 +11,9 @@ export default mutationWithClientMutationId({
     name: {
       type: new GraphQLNonNull(GraphQLString),
     },
+    username: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
     image: {
       type: new GraphQLNonNull(GraphQLString),
     },
@@ -21,9 +24,7 @@ export default mutationWithClientMutationId({
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  mutateAndGetPayload: async ({
-    name, image, email, password,
-  }) => {
+  mutateAndGetPayload: async ({ name, username, image, email, password }) => {
     let user = await User.findOne({ email: email.toLowerCase() });
 
     if (user) {
@@ -35,6 +36,7 @@ export default mutationWithClientMutationId({
 
     user = new User({
       name,
+      username,
       image,
       email,
       password,

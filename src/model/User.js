@@ -9,6 +9,10 @@ const Schema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    username: {
+      type: String,
+      required: true,
+    },
     image: {
       type: String,
       required: true,
@@ -36,7 +40,7 @@ const Schema = new mongoose.Schema(
   },
 );
 
-Schema.pre('save', function (next) {
+Schema.pre('save', function(next) {
   // Hash the password
   if (this.isModified('password')) {
     this.password = this.encryptPassword(this.password);

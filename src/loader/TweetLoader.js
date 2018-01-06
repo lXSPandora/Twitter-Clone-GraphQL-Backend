@@ -2,15 +2,15 @@
 import DataLoader from 'dataloader';
 import { Tweet as TweetModel } from '../model';
 import { connectionFromMongoCursor, mongooseLoader } from '@entria/graphql-mongoose-loader';
-
+import type { UserType } from './UserLoader';
 import type { ConnectionArguments } from 'graphql-relay';
 import type { GraphQLContext } from '../TypeDefinition';
 
 type TweetType = {
   id: string,
   _id: string,
-  username: string,
-  userImage: string,
+  userId: string,
+  user: UserType,
   text: string,
   likes: Array<string>,
 };
@@ -18,16 +18,16 @@ type TweetType = {
 export default class Tweet {
   id: string;
   _id: string;
-  username: string;
-  userImage: string;
+  userId: string;
+  user: UserType;
   text: string;
   likes: Array<string>;
 
   constructor(data: TweetType) {
     this.id = data.id;
     this._id = data._id;
-    this.username = data.username;
-    this.userImage = data.userImage;
+    this.userId = data.userId;
+    this.user = data.user;
     this.title = data.title;
     this.text = data.text;
     this.likes = data.likes;

@@ -4,10 +4,7 @@ import mongoose from 'mongoose';
 
 const TweetSchema = new mongoose.Schema(
   {
-    username: {
-      type: String,
-    },
-    userImage: {
+    userId: {
       type: String,
     },
     text: {
