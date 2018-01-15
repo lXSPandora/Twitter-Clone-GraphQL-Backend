@@ -35,9 +35,15 @@ export default mutationWithClientMutationId({
       text,
       likes,
     });
+
     await tweet.save();
 
+    const { id } = tweet;
+
+    console.log(id);
+
     return {
+      id,
       error: null,
     };
   },
