@@ -21,7 +21,8 @@
     "koa-graphql-batch": "^1.1.0",
     "koa-logger": "^3.1.0",
     "koa-router": "^7.2.1",
-    "mongoose": "^4.12.4"
+    "mongoose": "^4.12.4",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -47,14 +48,22 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testPathIgnorePatterns": ["/node_modules/", "./dist"],
-    "coverageReporters": ["lcov", "html"],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "./dist"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "html"
+    ],
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
     "moduleNameMapper": {
       "^mongoose$": "<rootDir>/node_modules/mongoose"
     },
-    "setupFiles": ["babel-polyfill"]
+    "setupFiles": [
+      "babel-polyfill"
+    ]
   },
   "license": "MIT",
   "main": "index.js",
@@ -69,8 +78,7 @@
     ]
   },
   "scripts": {
-    "build":
-      "npm run clear && babel src --ignore *.spec.js --out-dir dist --copy-files",
+    "build": "npm run clear && babel src --ignore *.spec.js --out-dir dist --copy-files",
     "clear": "rimraf ./dist",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "lint": "eslint src/**",
@@ -80,6 +88,9 @@
     "test": "jest --coverage --forceExit --runInBand",
     "test:watch": "jest --watch --coverage",
     "update-schema": "babel-node ./scripts/updateSchema.js",
-    "watch": "nodemon src/index.js --exec babel-node"
-  }
+    "watch": "nodemon src/index.js --exec babel-node",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
+  },
+  "snyk": true
 }
